@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">MyCart</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      </ul>
+      <button class="btn btn-danger me-5" routerLink="/">Go Back</button>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" name="search" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="searchTerm">
+      </form>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container-fluid">
+  <cdk-virtual-scroll-viewport itemSize="50" minBufferPx="200" maxBufferPx="400" class="example-viewport">
+   <div class="container item-list">
+    <div class="card" style="width: 18rem;" *cdkVirtualFor="let product of imageApi | search : searchTerm">
+      <img [src]="product.url" class="card-img-top" alt="img" height="300">
+      <div class="card-body">
+        <h5 class="card-title">{{product.itemName}}</h5>
+        <p class="card-text">{{product.itemPrice | currency:"INR"}}</p>
+      </div>
+    </div>
+    <div class="loader" *ngIf="isLoaded == true" style="margin-top: 300px;">
+      <button class="btn btn-primary" type="button" disabled>
+        <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+        <span role="status">Loading...</span>
+      </button>
+    </div>
+   </div>
+  </cdk-virtual-scroll-viewport>
+</div>

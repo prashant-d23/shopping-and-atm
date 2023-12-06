@@ -1,0 +1,67 @@
+<div class="container d-flex align-items-center">
+
+  <div class="container w-70 bg-secondary bg-opacity-10 rounded-3 p-3">
+    <button class="btn btn-danger ms-3" routerLink="/">Go Back</button>
+    <h2 class="text-center mt-2 fs-4">ATM Machine</h2>
+
+    <h3 class="fs-5 fw-bold">Current Available Denomination in Machine</h3>
+
+    <table class="table table-primary">
+      <tbody>
+        <tr *ngFor="let note of notes; let i = index">
+          <th class="pe-5 fs-6">{{note.value}}</th>
+          <td class="w-25 fs-6">{{note.count}}</td>
+          <td class="text-danger fs-4">|</td>
+          <td><input class="input" type="text" [(ngModel)]="notes[i].deposite " placeholder=" "></td>
+        </tr>
+        <tr>
+          <th class="fs-6">Total</th>
+          <th class="fs-6">{{totalAmt | currency : "INR"}}</th>
+          <td class="text-danger fs-4">|</td>
+          <td><button class="btn btn-primary input" (click)="deposite()">Deposit</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="container">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Enter amount for withdrawal" [(ngModel)]="withdrawAmount"
+          aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <span class="input-group-text btn btn-success" id="basic-addon2" (click)="withdrawAmt()">Withdraw!</span>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>Log</h2>
+
+      <div *ngFor="let log of withdrawLog">
+        <div class="alert alert-success" role="alert" style="height: 80px;">
+          <span class="fs-6">{{log.type}} </span><span>{{log.amount | currency : "INR"}} | </span>
+          <span>{{log.noteCounter}}</span>
+          <p>{{log.dateTime}}</p>
+        </div>
+      </div>
+
+      <div *ngFor="let log of depositeLog">
+        <div class="alert alert-primary" role="alert" style="height: 80px;">
+          <span class="fs-6">{{log.type}} </span><span>{{log.amount | currency : "INR"}} | </span>
+          <span>{{log.noteCounter}}</span>
+          <p>{{log.dateTime}}</p>
+        </div>
+      </div>
+
+      <div *ngFor="let log of errorLog">
+        <div class="alert alert-danger" role="alert" style="height: 80px;">
+          <h6 class="fs-6">{{log.msg}}</h6>
+          <p>{{log.dateTime}}</p>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+
+</div>
